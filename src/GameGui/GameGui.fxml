@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 
@@ -94,3 +92,4 @@
    </rowConstraints>
 
 </GridPane>
+
