@@ -3,11 +3,14 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
+        final String propertyFileName = "GameProperties";
         //Set size of game board.
         final int numberRows = 4;
         final int numberColumns = 4;
 
         GuiDisplay display = new ConsoleGuiDisplay();
+
+        PropertyManager propertyManager = new PropertyManager(propertyFileName);
 
         /*
         //Create bool parameter for while loop to get player wanted player.

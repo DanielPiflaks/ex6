@@ -29,7 +29,8 @@ public class Enums {
         Player1First, Player2First
     }
 
-
-
+    enum PlayersColors{
+        Black, White
+    }
 
 }
