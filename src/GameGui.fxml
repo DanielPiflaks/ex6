@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="173.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameGuiController">
+<GridPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameGuiController">
    <columnConstraints>
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
-      <RowConstraints maxHeight="24.0" minHeight="0.0" prefHeight="0.0" />
-      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="74.0" />
+      <RowConstraints maxHeight="132.0" minHeight="100.0" prefHeight="132.0" />
+      <RowConstraints maxHeight="94.0" minHeight="70.0" prefHeight="70.0" />
+      <RowConstraints maxHeight="120.0" minHeight="70.0" prefHeight="70.0" />
+      <RowConstraints maxHeight="78.0" minHeight="100.0" prefHeight="43.0" />
    </rowConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" disable="true" prefHeight="15.0" prefWidth="151.0" text="Reversi Game" />
-      <Button mnemonicParsing="false" onAction="#openSettingsWindow" text="Settings" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#startGame" text="Start Game" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" contentDisplay="CENTER" disable="true" prefHeight="54.0" prefWidth="800.0" text="Reversi Game" textFill="#7171b9" GridPane.halignment="CENTER" GridPane.rowSpan="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="84.0" />
+         </font></Label>
+      <Button mnemonicParsing="false" onAction="#openSettingsWindow" text="Settings" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#startGame" text="Start Game" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
    </children>
 </GridPane>
