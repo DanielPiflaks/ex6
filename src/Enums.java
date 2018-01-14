@@ -22,13 +22,6 @@ public class Enums {
     }
 
 
-    /**
-     * Enum Start first options.
-     */
-    enum StartFirstOptions {
-        Player1First, Player2First
-    }
-
     enum PlayersColors{
         Black, White
     }

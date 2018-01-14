@@ -18,12 +18,12 @@ public class Game {
         //Get game board.
         gameBoard = gameParameters.getGameBoard();
         //Get enum who start first.
-        Enums.StartFirstOptions startFirstOptions = gameParameters.getStartFirst();
+        Enums.PlayersColors startFirstOptions = gameParameters.getStartFirst();
         //Initialize gui display.
         display = gameParameters.getGuiDisplay();
         //Initialize players by who start first options.
         switch (startFirstOptions) {
-            case Player1First: {
+            case Black: {
                 //Get first player.
                 firstPlayer = gameParameters.getPlayer1();
                 //Get second player.
@@ -31,7 +31,7 @@ public class Game {
                 break;
             }
 
-            case Player2First: {
+            case White: {
                 //Get first player.
                 firstPlayer = gameParameters.getPlayer2();
                 //Get second player.

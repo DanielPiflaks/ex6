@@ -1,7 +1,7 @@
 public class GameParameters {
 
     private Board gameBoard;
-    private Enums.StartFirstOptions startFirst;
+    private Enums.PlayersColors startFirst;
     private GameLogic gameLogic;
     private Player player1;
     private Player player2;
@@ -23,9 +23,9 @@ public class GameParameters {
      */
     GameParameters(Enums.PlayerOptions player1Type, char player1Symbol, Enums.PlayerOptions player2Type, char player2Symbol,
                    int numRows, int numColumns, GuiDisplay displayOption,
-                   Enums.StartFirstOptions startFirst, Enums.GameLogicOptions gameLogicOption) {
+                   Enums.PlayersColors startFirst, Enums.GameLogicOptions gameLogicOption) {
         //Set who start first.
-        this.startFirst = startFirst;
+        this.startFirst = Enums.PlayersColors.Black;
         //Create new game board.
         gameBoard = new Board(numRows, numColumns);
         display = displayOption;
@@ -103,7 +103,7 @@ public class GameParameters {
      *
      * @return who start first.
      */
-    Enums.StartFirstOptions getStartFirst() {
+    Enums.PlayersColors getStartFirst() {
         return this.startFirst;
     }
 

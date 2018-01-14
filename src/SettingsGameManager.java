@@ -1,10 +1,11 @@
 import java.io.*;
 
-public class PropertyManager implements Serializable {
+public class SettingsGameManager implements Serializable {
+    private File propertyFileManager;
     private int boardSize;
     private Enums.PlayersColors firstPlayerColor;
     private Enums.PlayersColors secondPlayerColor;
-    private Enums.StartFirstOptions startFirstOptions;
+    private Enums.PlayersColors startFirstOptions;
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
@@ -18,12 +19,12 @@ public class PropertyManager implements Serializable {
         this.secondPlayerColor = secondPlayerColor;
     }
 
-    public void setStartFirstOptions(Enums.StartFirstOptions startFirstOptions) {
+    public void setStartFirstOptions(Enums.PlayersColors startFirstOptions) {
         this.startFirstOptions = startFirstOptions;
     }
 
-    PropertyManager(String fileName) {
-        File propertyFileManager = new File(fileName);
+    SettingsGameManager(String fileName) {
+        this.propertyFileManager = new File(fileName);
 
         //Check if file exists.
         if (propertyFileManager.exists()) {
@@ -38,7 +39,7 @@ public class PropertyManager implements Serializable {
                 //If it's not exists, save new file.
                 setParametersToDefault();
 
-                save(propertyFileManager);
+                save();
             } catch (Exception e) {
                 System.out.println("Can't save new file.");
             }
@@ -49,15 +50,14 @@ public class PropertyManager implements Serializable {
     /**
      * Save file property data to the specified file.
      *
-     * @param filename Filename of property manager.
      * @throws IOException Exception if file can't be loaded.
      */
-    public void save(File filename) throws IOException {
+    public void save() throws IOException {
         ObjectOutputStream objectOutputStream = null;
         try {
             //Create object input steam that decorate file input stream.
             objectOutputStream = new ObjectOutputStream(
-                    new FileOutputStream(filename.getPath()));
+                    new FileOutputStream(this.propertyFileManager.getPath()));
             //Write object to file.
             objectOutputStream.writeObject(this);
 
@@ -70,7 +70,7 @@ public class PropertyManager implements Serializable {
                     objectOutputStream.close();
                 }
             } catch (IOException e) {
-                System.err.println("Failed closing file: " + filename.getPath());
+                System.err.println("Failed closing file: " + this.propertyFileManager.getPath());
             }
         }
     }
@@ -87,7 +87,7 @@ public class PropertyManager implements Serializable {
         return secondPlayerColor;
     }
 
-    public Enums.StartFirstOptions getStartFirstOptions() {
+    public Enums.PlayersColors getStartFirstOptions() {
         return startFirstOptions;
     }
 
@@ -105,7 +105,7 @@ public class PropertyManager implements Serializable {
             objectInputStream = new ObjectInputStream(
                     new FileInputStream(filename.getPath()));
             //Read object as high score table.
-            PropertyManager loadedPropertyManager = (PropertyManager) objectInputStream.readObject();
+            SettingsGameManager loadedPropertyManager = (SettingsGameManager) objectInputStream.readObject();
 
             //Set this table to be high score that loaded.
             this.boardSize = loadedPropertyManager.getBoardSize();
@@ -137,15 +137,16 @@ public class PropertyManager implements Serializable {
     }
 
     private void setParametersToDefault(){
-        final Enums.StartFirstOptions startFirstOptionsDef = Enums.StartFirstOptions.Player1First;
-        final Enums.PlayersColors firstPlayerColorDef = Enums.PlayersColors.White;
-        final Enums.PlayersColors secondPlayerColorDef = Enums.PlayersColors.Black;
-        final int boardSizeDef = 4;
+        final Enums.PlayersColors startFirstOptionsDef = Enums.PlayersColors.Black;
+        final Enums.PlayersColors firstPlayerColorDef = Enums.PlayersColors.Black;
+        final Enums.PlayersColors secondPlayerColorDef = Enums.PlayersColors.White;
+        final int boardSizeDef = 8;
 
         this.startFirstOptions = startFirstOptionsDef;
         this.firstPlayerColor = firstPlayerColorDef;
         this.secondPlayerColor = secondPlayerColorDef;
         this.boardSize = boardSizeDef;
     }
+
 
 }
