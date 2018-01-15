@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleGuiDisplay implements GuiDisplay {
 
@@ -86,5 +87,45 @@ public class ConsoleGuiDisplay implements GuiDisplay {
         System.out.println("1. start new game");
         System.out.println("2. get list of optional games to play");
         System.out.println("3. join exiting game");
+    }
+
+    @Override
+    public BoardCoordinates getUserPlayChoice(List<BoardCoordinates> possibleMoves, Board board) {
+        int row, column;
+        boolean validChoice = false;
+        Scanner in = new Scanner(System.in);
+
+        //While player choice isn't valid, try to get it.
+        do {
+            printMessage("Please enter your move row col:");
+            row = in.nextInt();
+            column = in.nextInt();
+            //Ignore \n.
+            //cin.ignore();
+
+            if (!board.isOnBoard(row, column)) {
+                printMessage("Choice is out of board! Please choose valid row and column");
+                //cin.clear();
+                //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            //Check if choice is possible move.
+            for (int i = 0; i < possibleMoves.size(); i++) {
+                if ((row == possibleMoves.get(i).getRow()) && (column == possibleMoves.get(i).getColumn())) {
+                    validChoice = true;
+                    break;
+                }
+            }
+
+            if (!validChoice) {
+                printMessage("No such move exist in your option.Please Select valid one.");
+                printPossibleMoves(possibleMoves);
+            }
+
+        } while (((row > board.getNumRows()) || (column > board.getNumCols())) || (!validChoice));
+        //Return player choice.
+        return new BoardCoordinates(row, column);
+
     }
 }

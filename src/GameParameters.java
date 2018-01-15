@@ -16,18 +16,16 @@ public class GameParameters {
      * @param player1Symbol   what symbol will represent player 1.
      * @param player2Type     what type player 2 is.
      * @param player2Symbol   what symbol will represent player 2.
-     * @param numRows         board number of rows,
-     * @param numColumns      board number of columns.
      * @param startFirst      who start first. by default its player1.
      * @param gameLogicOption what game logic to play. by default its standart game logic.
      */
     GameParameters(Enums.PlayerOptions player1Type, char player1Symbol, Enums.PlayerOptions player2Type, char player2Symbol,
-                   int numRows, int numColumns, GuiDisplay displayOption,
+                   int boardSize, GuiDisplay displayOption,
                    Enums.PlayersColors startFirst, Enums.GameLogicOptions gameLogicOption) {
         //Set who start first.
-        this.startFirst = Enums.PlayersColors.Black;
+        this.startFirst = startFirst;
         //Create new game board.
-        gameBoard = new Board(numRows, numColumns);
+        gameBoard = new Board(boardSize, boardSize);
         display = displayOption;
         //Create game logic by input.
         switch (gameLogicOption) {

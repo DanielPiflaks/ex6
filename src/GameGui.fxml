@@ -22,6 +22,6 @@
             <Font size="84.0" />
          </font></Label>
       <Button mnemonicParsing="false" onAction="#openSettingsWindow" text="Settings" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Button mnemonicParsing="false" onAction="#startGame" text="Start Game" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#startGame" text="Start Game" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

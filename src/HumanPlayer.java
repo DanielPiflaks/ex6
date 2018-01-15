@@ -54,41 +54,8 @@ public class HumanPlayer extends Player {
 
 
     public BoardCoordinates getPlayerChoice(List<BoardCoordinates> possibleMoves) {
-        int row, column;
-        boolean validChoice = false;
-        Scanner in = new Scanner(System.in);
-
-        //While player choice isn't valid, try to get it.
-        do {
-            this.display.printMessage("Please enter your move row col:");
-            row = in.nextInt();
-            column = in.nextInt();
-            //Ignore \n.
-            //cin.ignore();
-
-            if (!this.board.isOnBoard(row, column)) {
-                this.display.printMessage("Choice is out of board! Please choose valid row and column");
-                //cin.clear();
-                //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                continue;
-            }
-
-            //Check if choice is possible move.
-            for (int i = 0; i < possibleMoves.size(); i++) {
-                if ((row == possibleMoves.get(i).getRow()) && (column == possibleMoves.get(i).getColumn())) {
-                    validChoice = true;
-                    break;
-                }
-            }
-
-            if (!validChoice) {
-                this.display.printMessage("No such move exist in your option.Please Select valid one.");
-                this.display.printPossibleMoves(possibleMoves);
-            }
-
-        } while (((row > this.board.getNumRows()) || (column > this.board.getNumCols())) || (!validChoice));
-        //Return player choice.
-        return new BoardCoordinates(row, column);
+        BoardCoordinates playerChice = display.getUserPlayChoice(possibleMoves, this.board);
+        return playerChice;
     }
 
 }

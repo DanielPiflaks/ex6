@@ -77,9 +77,8 @@ public class SettingsWindowController implements Initializable {
         }
 
         ObservableList<String> sizeOptions = FXCollections.observableArrayList();
-        for (int i = 4; i <= 20; i++) {
+        for (int i = 4; i <= 20; i = i + 2) {
             sizeOptions.add(i + "x" + i);
-
         }
         this.comboBoxBoardSize.setItems(sizeOptions);
         this.comboBoxBoardSize.setValue(size + "x" + size);

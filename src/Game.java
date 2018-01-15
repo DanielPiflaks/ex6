@@ -24,18 +24,24 @@ public class Game {
         //Initialize players by who start first options.
         switch (startFirstOptions) {
             case Black: {
-                //Get first player.
-                firstPlayer = gameParameters.getPlayer1();
-                //Get second player.
-                secondPlayer = gameParameters.getPlayer2();
+                if (gameParameters.getPlayer1().getSymbol() == 'x') {
+                    firstPlayer = gameParameters.getPlayer1();
+                    secondPlayer = gameParameters.getPlayer2();
+                } else {
+                    secondPlayer = gameParameters.getPlayer1();
+                    firstPlayer = gameParameters.getPlayer2();
+                }
                 break;
             }
 
             case White: {
-                //Get first player.
-                firstPlayer = gameParameters.getPlayer2();
-                //Get second player.
-                secondPlayer = gameParameters.getPlayer1();
+                if (gameParameters.getPlayer1().getSymbol() == 'o') {
+                    firstPlayer = gameParameters.getPlayer1();
+                    secondPlayer = gameParameters.getPlayer2();
+                } else {
+                    secondPlayer = gameParameters.getPlayer1();
+                    firstPlayer = gameParameters.getPlayer2();
+                }
                 break;
             }
         }
@@ -58,6 +64,7 @@ public class Game {
         //Game loop. ends when both players don't have any possible moves.
         while (gameOverIndicator < 2) {
             //Draw game board.
+            this.display.printPlayerTurn(firstPlayer.getSymbol());
             this.display.printBoard(this.gameBoard);
 
             //Play one turn.
@@ -88,8 +95,8 @@ public class Game {
                 break;
             }
             //Draws game board.
+            this.display.printPlayerTurn(secondPlayer.getSymbol());
             this.display.printBoard(this.gameBoard);
-            //gameBoard->drawBoard();
             //Play one turn.
             mapOfLastMove = this.secondPlayer.playOneTurn();
             //Check if map of moves is not empty.

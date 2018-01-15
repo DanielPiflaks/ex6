@@ -63,5 +63,11 @@ public interface GuiDisplay {
      */
     void printClientMenu();
 
+    /**
+     * Getting from user wanted play.
+     *
+     * @return
+     */
+    BoardCoordinates getUserPlayChoice(List<BoardCoordinates> possibleMoves, Board board);
 
 }
