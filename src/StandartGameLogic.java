@@ -3,8 +3,6 @@ import java.util.*;
 
 public class StandartGameLogic extends GameLogic {
 
-
-
     /**
      * Constructor.
      *
@@ -15,7 +13,7 @@ public class StandartGameLogic extends GameLogic {
     }
 
     @Override
-    Map<BoardCoordinates, List<BoardCoordinates>> getPossibleGameMoves(List<BoardCoordinates> playerMoves, char playerSymbol) {
+    Map<BoardCoordinates, List<BoardCoordinates>> getPossibleGameMoves(List<BoardCoordinates> playerMoves, Enums.PlayersColors playerColor) {
         Map<BoardCoordinates, List<BoardCoordinates>> possibleMoves = new HashMap<>();
         BoardCoordinates resultCoordinate;
         //For each player move, create vector of it's possible flip symbols of opponent.
@@ -26,42 +24,42 @@ public class StandartGameLogic extends GameLogic {
             //Get row.
             int row = playerMoves.get(i).getRow();
             //Check right possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Right, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Right, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check left possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Left, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Left, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check up possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Up, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Up, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check down possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Down, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.Down, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check up left possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.UpLeft, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.UpLeft, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check down right possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.DownRight, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.DownRight, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check up right possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.UpRight, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.UpRight, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
             //Check down left possible plays.
-            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.DownLeft, playerSymbol);
+            resultCoordinate = CheckByDirection(row, column, Enums.DirectionCheck.DownLeft, playerColor);
             if ((resultCoordinate.getRow() != -1) && (resultCoordinate.getColumn() != -1)) {
                 movementsForCurrentMove.add(resultCoordinate);
             }
@@ -76,7 +74,7 @@ public class StandartGameLogic extends GameLogic {
     }
 
     @Override
-    List<BoardCoordinates> flipSymbols(Map<BoardCoordinates, List<BoardCoordinates>> allChoices, BoardCoordinates wantedChoice, char playerSymbol) {
+    List<BoardCoordinates> flipSymbols(Map<BoardCoordinates, List<BoardCoordinates>> allChoices, BoardCoordinates wantedChoice, Enums.PlayersColors playerColor) {
         List<BoardCoordinates> removePlaces = new ArrayList<>();
         //For each coordinate check if player choice is in it and flip the row.
         for (Map.Entry<BoardCoordinates, List<BoardCoordinates>> moves : allChoices.entrySet()) {
@@ -88,8 +86,8 @@ public class StandartGameLogic extends GameLogic {
             if (availableMoves.contains(wantedChoice)) {
                 //Flip wanted row.
                 List<BoardCoordinates> singleRow = singleRowToFlip(fromCoordinate,
-                        wantedChoice, playerSymbol);
-                flipOnBoard(singleRow, playerSymbol);
+                        wantedChoice, playerColor);
+                flipOnBoard(singleRow, playerColor);
                 //insert flipped row into remove places vector.
                 for (int i = 0; i < singleRow.size(); ++i) {
                     if (!(removePlaces.contains(singleRow.get(i)))) {
@@ -103,7 +101,7 @@ public class StandartGameLogic extends GameLogic {
     }
 
     @Override
-    int numberOfPossibleFlips(Map<BoardCoordinates, List<BoardCoordinates>> allChoices, BoardCoordinates wantedChoice, char playerSymbol) {
+    int numberOfPossibleFlips(Map<BoardCoordinates, List<BoardCoordinates>> allChoices, BoardCoordinates wantedChoice, Enums.PlayersColors playerColor) {
         //Counter.
         int flipNumbers = 0;
         List<BoardCoordinates> removePlaces = new ArrayList<>();
@@ -117,7 +115,7 @@ public class StandartGameLogic extends GameLogic {
             if (availableMoves.contains(wantedChoice)) {
                 //Flip wanted row.
                 List<BoardCoordinates> singleRow = singleRowToFlip(fromCoordinate,
-                        wantedChoice, playerSymbol);
+                        wantedChoice, playerColor);
                 flipNumbers = flipNumbers + singleRow.size();
                 //insert flipped row into remove places vector.
                 for (int i = 0; i < singleRow.size(); ++i) {
@@ -141,7 +139,7 @@ public class StandartGameLogic extends GameLogic {
      * @return possible moves.
      */
     private BoardCoordinates CheckByDirection(int startRow, int startColumn,
-                                              Enums.DirectionCheck direction, char playerSymbol) {
+                                              Enums.DirectionCheck direction, Enums.PlayersColors playerColor) {
         int rowStep, columnStep, counter = 0;
         //Set by direction steps of row and column.
         switch (direction) {
@@ -194,7 +192,7 @@ public class StandartGameLogic extends GameLogic {
 
         int rowMovement = startRow + rowStep;
         int columnMovement = startColumn + columnStep;
-        char currentSymbol = '\0';
+        Enums.PlayersColors currentSymbol = null;
         //Check if wanted row and col to check is valid.
         if (getBoard().isOnBoard(rowMovement, columnMovement)) {
             //Run on board while you see opponent symbol.
@@ -204,12 +202,12 @@ public class StandartGameLogic extends GameLogic {
                 columnMovement = columnMovement + columnStep;
                 counter++;
             } while (getBoard().isOnBoard(rowMovement, columnMovement)
-                    && (currentSymbol != playerSymbol)
-                    && (currentSymbol != ' '));
+                    && (currentSymbol != playerColor)
+                    && (currentSymbol != Enums.PlayersColors.NoColor));
         }
         //Check if coordinate is valid and return it.
         if (getBoard().isOnBoard(rowMovement - rowStep, columnMovement - columnStep)
-                && (counter > 1) && (currentSymbol == ' ')) {
+                && (counter > 1) && (currentSymbol == Enums.PlayersColors.NoColor)) {
             return new BoardCoordinates(rowMovement - rowStep, columnMovement - columnStep);
         } else {
             //Mark that BoardCoordinate isn't valid.
@@ -226,7 +224,7 @@ public class StandartGameLogic extends GameLogic {
      * @return all board coordinates that flipped.
      */
     List<BoardCoordinates> singleRowToFlip(BoardCoordinates start,
-                                           BoardCoordinates end, char playerSymbol) {
+                                           BoardCoordinates end, Enums.PlayersColors playerColor) {
         List<BoardCoordinates> flipCoordinates = new ArrayList<>();
         //Get difference of row and col to know wanted direction.
         int rowDiff = start.getRow() - end.getRow();

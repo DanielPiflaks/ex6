@@ -24,7 +24,7 @@ public class Game {
         //Initialize players by who start first options.
         switch (startFirstOptions) {
             case Black: {
-                if (gameParameters.getPlayer1().getSymbol() == 'x') {
+                if (gameParameters.getPlayer1().getSymbol() == Enums.PlayersColors.Black) {
                     firstPlayer = gameParameters.getPlayer1();
                     secondPlayer = gameParameters.getPlayer2();
                 } else {
@@ -35,7 +35,7 @@ public class Game {
             }
 
             case White: {
-                if (gameParameters.getPlayer1().getSymbol() == 'o') {
+                if (gameParameters.getPlayer1().getSymbol() == Enums.PlayersColors.White) {
                     firstPlayer = gameParameters.getPlayer1();
                     secondPlayer = gameParameters.getPlayer2();
                 } else {
@@ -64,11 +64,11 @@ public class Game {
         //Game loop. ends when both players don't have any possible moves.
         while (gameOverIndicator < 2) {
             //Draw game board.
-            this.display.printPlayerTurn(firstPlayer.getSymbol());
+            //this.display.printPlayerTurn(firstPlayer.getSymbol());
             this.display.printBoard(this.gameBoard);
 
             //Play one turn.
-            mapOfLastMove = this.firstPlayer.playOneTurn();
+            //mapOfLastMove = this.firstPlayer.playOneTurn();
             //Check if map of moves is not empty.
             if (!mapOfLastMove.isEmpty()) {
                 //Extract the vector of cell to update from map.
@@ -95,10 +95,10 @@ public class Game {
                 break;
             }
             //Draws game board.
-            this.display.printPlayerTurn(secondPlayer.getSymbol());
+            //this.display.printPlayerTurn(secondPlayer.getSymbol());
             this.display.printBoard(this.gameBoard);
             //Play one turn.
-            mapOfLastMove = this.secondPlayer.playOneTurn();
+            //mapOfLastMove = this.secondPlayer.playOneTurn();
             //Check if map of moves is not empty.
             if (!mapOfLastMove.isEmpty()) {
                 //Extract the vector of cell to update from map.
@@ -121,17 +121,17 @@ public class Game {
             }
         }
         //Print player 1 score.
-        this.display.printScore(this.firstPlayer.getSymbol(), this.firstPlayer.getScore());
+        //this.display.printScore(this.firstPlayer.getSymbol(), this.firstPlayer.getScore());
         //Print player 2 score.
-        this.display.printScore(this.secondPlayer.getSymbol(), this.secondPlayer.getScore());
+        //this.display.printScore(this.secondPlayer.getSymbol(), this.secondPlayer.getScore());
 
         this.display.printMessage("Game result is:");
         //Check who won and print the result.
         if (this.firstPlayer.getScore() > this.secondPlayer.getScore()) {
-            this.display.printWinner(this.firstPlayer.getSymbol());
+            //this.display.printWinner(this.firstPlayer.getSymbol());
         } else if (this.firstPlayer.getScore() < this.secondPlayer.getScore()) {
 
-            this.display.printWinner(this.secondPlayer.getSymbol());
+            //this.display.printWinner(this.secondPlayer.getSymbol());
         } else {
             this.display.printMessage("It's a tie!");
         }

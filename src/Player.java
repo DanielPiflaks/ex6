@@ -4,7 +4,7 @@ import java.util.Map;
 
 abstract public class Player {
 
-    protected char symbol;
+    protected Enums.PlayersColors color;
     protected Board board;
     protected List<BoardCoordinates> playerMoves;
     protected GameLogic gameLogic;
@@ -13,12 +13,12 @@ abstract public class Player {
     /**
      * Player constructor.
      *
-     * @param symbol
+     * @param color
      * @param board
      * @param gameLogic
      */
-    Player(char symbol, Board board, GameLogic gameLogic, GuiDisplay display) {
-        this.symbol = symbol;
+    Player(Enums.PlayersColors color, Board board, GameLogic gameLogic, GuiDisplay display) {
+        this.color = color;
         this.gameLogic = gameLogic;
         this.board = board;
         this.display = display;
@@ -30,7 +30,7 @@ abstract public class Player {
      *
      * @return flipped board coordinates vector.
      */
-    abstract Map<BoardCoordinates, List<BoardCoordinates>> playOneTurn();
+    abstract Map<BoardCoordinates, List<BoardCoordinates>> playOneTurn(BoardCoordinates boardCoordinates);
 
 
     /**
@@ -45,7 +45,7 @@ abstract public class Player {
         //Insert it to player moves.
         playerMoves.add(newCoordinate);
         //Put this symbol on board.
-        board.putSymbolOnBoard(row, column, symbol);
+        board.putSymbolOnBoard(row, column, this.color);
     }
 
     /**
@@ -81,8 +81,8 @@ abstract public class Player {
      *
      * @return Returns player symbol.
      */
-    char getSymbol() {
-        return this.symbol;
+    Enums.PlayersColors getSymbol() {
+        return this.color;
     }
 
     /**
@@ -103,4 +103,7 @@ abstract public class Player {
         return this.playerMoves;
     }
 
+    abstract Boolean checkIfValidMove(BoardCoordinates coordinates);
+
+    abstract Boolean isThereMoves();
 }

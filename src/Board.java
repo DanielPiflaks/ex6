@@ -1,8 +1,22 @@
-public class Board {
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.TRANSPARENT;
+import static javafx.scene.paint.Color.WHITE;
+
+public class Board extends GridPane {
 
     private int numRows;
     private int numCols;
-    private char[][] boardMatrix;
+    private Enums.PlayersColors[][] boardMatrix;
+    private List<BoardRectangle> rectangles;
 
     /**
      * Constructor.
@@ -11,14 +25,19 @@ public class Board {
      * @param numCols number of columns.
      */
     Board(int numRows, int numCols) {
+        this.getChildren().clear();
+        this.setGridLinesVisible(false);
+        this.setGridLinesVisible(true);
+
         this.numRows = numRows;
         this.numCols = numCols;
-        boardMatrix = new char[numRows][numCols];
+        boardMatrix = new Enums.PlayersColors[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                boardMatrix[i][j] = ' ';
+                boardMatrix[i][j] = Enums.PlayersColors.NoColor;
             }
         }
+        this.rectangles = new ArrayList<>();
     }
 
     /**
@@ -26,10 +45,10 @@ public class Board {
      *
      * @param row    wanted row.
      * @param column wanted column.
-     * @param symbol wanted symbol.
+     * @param color  wanted color.
      */
-    void putSymbolOnBoard(int row, int column, char symbol) {
-        boardMatrix[row - 1][column - 1] = symbol;
+    void putSymbolOnBoard(int row, int column, Enums.PlayersColors color) {
+        boardMatrix[row - 1][column - 1] = color;
     }
 
     //Returns true if row and column is
@@ -54,7 +73,7 @@ public class Board {
      * @param column column place.
      * @return symbol from wanted place.
      */
-    char getSymbolByPlace(int row, int column) {
+    Enums.PlayersColors getSymbolByPlace(int row, int column) {
         if (!isOnBoard(row, column)) {
             throw new RuntimeException("Invalid place!");
         }
@@ -77,6 +96,50 @@ public class Board {
      */
     int getNumCols() {
         return this.numCols;
+    }
+
+    public void drawBoard(int rootPrefHeight, int rootPrefWidth) {
+        int guiHeight = rootPrefHeight - 50;
+        int guiWidth = rootPrefWidth - 50;
+        int cellHeight = guiHeight / this.numCols;
+        int cellWidth = guiWidth / this.numRows;
+
+        for (int i = 0; i < this.numRows; i++) {
+            for (int j = 0; j < this.numCols; j++) {
+                BoardRectangle newRec = new BoardRectangle(cellWidth, cellHeight, TRANSPARENT, j, i);
+                rectangles.add(newRec);
+                this.add(newRec.getRectangle(), i, j);
+                if (getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.Black) {
+                    Circle black = new Circle(15);
+                    black.setFill(BLACK);
+                    this.add(black, j, i);
+                    GridPane.setValignment(black, VPos.CENTER);
+                    GridPane.setHalignment(black, HPos.CENTER);
+                } else if (getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.White) {
+                    Circle white = new Circle(15);
+                    white.setFill(WHITE);
+                    white.setStroke(BLACK);
+                    this.add(white, j, i);
+                    GridPane.setValignment(white, VPos.CENTER);
+                    GridPane.setHalignment(white, HPos.CENTER);
+                }
+            }
+        }
+
+    }
+
+    public BoardCoordinates getClickedPlace() {
+        for (int i = 0; i < rectangles.size(); i++) {
+            for (int j = 0; j < rectangles.size(); j++) {
+                if (this.rectangles.get(i).isClicked()) {
+                    this.rectangles.get(i).resetIsClicked();
+                    BoardRectangle currentRectangle = rectangles.get(i);
+                    return new BoardCoordinates(currentRectangle.getRow() + 1,
+                            currentRectangle.getCol() + 1);
+                }
+            }
+        }
+        return null;
     }
 
 

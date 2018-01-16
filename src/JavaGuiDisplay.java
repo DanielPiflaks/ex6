@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class JavaGuiDisplay implements GuiDisplay, PressListener {
+public class JavaGuiDisplay implements GuiDisplay {
 
     private GameBoardController gameBoardController;
 
@@ -25,13 +25,13 @@ public class JavaGuiDisplay implements GuiDisplay, PressListener {
 
     @Override
     public void printPlayerTurn(char playerSymbol) {
-        String currentPlayerTurn;
+        /*String currentPlayerTurn;
         if (playerSymbol == 'x') {
             currentPlayerTurn = "Black";
         } else {
             currentPlayerTurn = "White";
         }
-        gameBoardController.changeCurrentPlayer(currentPlayerTurn);
+        gameBoardController.changeCurrentPlayer(currentPlayerTurn.);*/
     }
 
     @Override
@@ -41,11 +41,11 @@ public class JavaGuiDisplay implements GuiDisplay, PressListener {
 
     @Override
     public void printScore(char playerSymbol, int playerScore) {
-        if (playerSymbol == 'x') {
+        /*if (playerSymbol == 'x') {
             gameBoardController.changeBlackPlayerScore(playerScore);
         } else {
             gameBoardController.changeWhitePlayerScore(playerScore);
-        }
+        }*/
 
     }
 
@@ -66,12 +66,7 @@ public class JavaGuiDisplay implements GuiDisplay, PressListener {
 
     @Override
     public BoardCoordinates getUserPlayChoice(List<BoardCoordinates> possibleMoves, Board board) {
-        BoardCoordinates move = this.gameBoardController.getPlayerMove();
         return null;
     }
 
-    @Override
-    public void pressListen(int row, int col) {
-
-    }
 }

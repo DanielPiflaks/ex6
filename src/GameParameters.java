@@ -13,13 +13,13 @@ public class GameParameters {
      * the game to be standart game logic.
      *
      * @param player1Type     what type player 1 is.
-     * @param player1Symbol   what symbol will represent player 1.
+     * @param player1Color    what symbol will represent player 1.
      * @param player2Type     what type player 2 is.
-     * @param player2Symbol   what symbol will represent player 2.
+     * @param player2Color    what symbol will represent player 2.
      * @param startFirst      who start first. by default its player1.
      * @param gameLogicOption what game logic to play. by default its standart game logic.
      */
-    GameParameters(Enums.PlayerOptions player1Type, char player1Symbol, Enums.PlayerOptions player2Type, char player2Symbol,
+    GameParameters(Enums.PlayerOptions player1Type, Enums.PlayersColors player1Color, Enums.PlayerOptions player2Type, Enums.PlayersColors player2Color,
                    int boardSize, GuiDisplay displayOption,
                    Enums.PlayersColors startFirst, Enums.GameLogicOptions gameLogicOption) {
         //Set who start first.
@@ -38,7 +38,7 @@ public class GameParameters {
         //Create player 1 by it's symbol and type.
         switch (player1Type) {
             case HumanPlayerOp: {
-                player1 = new HumanPlayer(player1Symbol, gameBoard, gameLogic, display);
+                player1 = new HumanPlayer(player1Color, gameBoard, gameLogic, display);
                 break;
             }
             case AIPlayerOp: {
@@ -54,7 +54,7 @@ public class GameParameters {
         //Create player 2 by it's symbol and type.
         switch (player2Type) {
             case HumanPlayerOp: {
-                player2 = new HumanPlayer(player2Symbol, gameBoard, gameLogic, display);
+                player2 = new HumanPlayer(player2Color, gameBoard, gameLogic, display);
                 break;
             }
             case AIPlayerOp: {

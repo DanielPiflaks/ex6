@@ -28,11 +28,11 @@ abstract public class GameLogic {
      * and returns map of each move to it possible play.
      *
      * @param playerMoves  player options on board.
-     * @param playerSymbol player symbol.
+     * @param playerColor player symbol.
      * @return map of all possible moves.
      */
     abstract Map<BoardCoordinates, List<BoardCoordinates>> getPossibleGameMoves(List<BoardCoordinates> playerMoves,
-                                                                                char playerSymbol);
+                                                                                Enums.PlayersColors playerColor);
 
     /**
      * Gets map of all moves, player choice to flip and flips it.
@@ -40,11 +40,11 @@ abstract public class GameLogic {
      *
      * @param allChoices   map of all choices.
      * @param wantedChoice wanted choice to flip.
-     * @param playerSymbol player symbol to know what not to flip.
+     * @param playerColor player symbol to know what not to flip.
      * @return flipped symbols.
      */
     abstract List<BoardCoordinates> flipSymbols(Map<BoardCoordinates, List<BoardCoordinates>> allChoices,
-                                                BoardCoordinates wantedChoice, char playerSymbol);
+                                                BoardCoordinates wantedChoice, Enums.PlayersColors playerColor);
 
 
     /**
@@ -53,22 +53,22 @@ abstract public class GameLogic {
      *
      * @param allChoices   map of all choices.
      * @param wantedChoice wanted choice to flip.
-     * @param playerSymbol player symbol to know what not to flip.
+     * @param playerColor player symbol to know what not to flip.
      * @return number of possible flips.
      */
     abstract int numberOfPossibleFlips(Map<BoardCoordinates, List<BoardCoordinates>> allChoices,
-                                       BoardCoordinates wantedChoice, char playerSymbol);
+                                       BoardCoordinates wantedChoice, Enums.PlayersColors playerColor);
 
     /**
      * Flips single board coordinate in given board.
      *
      * @param coordinatesToFlip coordinate to flip.
-     * @param symbol            symbol to put.
+     * @param playerColor            symbol to put.
      */
-    protected void flipOnBoard(List<BoardCoordinates> coordinatesToFlip, char symbol) {
+    protected void flipOnBoard(List<BoardCoordinates> coordinatesToFlip, Enums.PlayersColors playerColor) {
         for (int i = 0; i < coordinatesToFlip.size(); i++) {
             board.putSymbolOnBoard(coordinatesToFlip.get(i).getRow(),
-                    coordinatesToFlip.get(i).getColumn(), symbol);
+                    coordinatesToFlip.get(i).getColumn(), playerColor);
         }
     }
 

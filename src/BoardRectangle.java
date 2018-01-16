@@ -1,7 +1,7 @@
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
-public class BoardRectangle extends StackPane implements PressNotifier {
+public class BoardRectangle extends StackPane {
 
     private int row;
     private int col;
@@ -17,12 +17,16 @@ public class BoardRectangle extends StackPane implements PressNotifier {
         this.recWidth = recWidth;
         this.color = color;
         this.rectangle = new Rectangle(recWidth, rechHeight, color);
+        this.rectangle.setOnMouseClicked(event -> {
+            this.isClicked = true;
+        });
         this.row = row;
         this.col = col;
         this.isClicked = false;
-        setOnMouseClicked(event -> {
-            this.isClicked = true;
-        });
+    }
+
+    public void resetIsClicked(){
+        this.isClicked = false;
     }
 
     public boolean isClicked(){
@@ -37,18 +41,8 @@ public class BoardRectangle extends StackPane implements PressNotifier {
         return col;
     }
 
-    @Override
-    public void pressNotify(int row, int col) {
 
-    }
-
-    @Override
-    public void addPressListener(PressListener pressListener) {
-
-    }
-
-    @Override
-    public void removePressListener(PressListener pressListener) {
-
+    public Rectangle getRectangle(){
+        return this.rectangle;
     }
 }

@@ -23,7 +23,7 @@ public class Enums {
 
 
     enum PlayersColors{
-        Black, White
+        Black, White, NoColor
     }
 
 }
