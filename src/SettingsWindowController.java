@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
@@ -28,6 +29,8 @@ public class SettingsWindowController implements Initializable {
     private RadioButton secondPlayerColorWhite;
     @FXML
     private ComboBox<String> comboBoxBoardSize;
+    @FXML
+    private Label warning;
 
     private SettingsGameManager settingsGameManager;
 
@@ -136,14 +139,19 @@ public class SettingsWindowController implements Initializable {
 
     @FXML
     private void save() {
-        try {
-            this.settingsGameManager.save();
-        } catch (Exception e) {
-            System.out.println("Can't save new file.");
+        if (this.settingsGameManager.getFirstPlayerColor() ==
+                this.settingsGameManager.getSecondPlayerColor()) {
+            this.warning.setText("Players can't use the same color!");
+        } else {
+            try {
+                this.settingsGameManager.save();
+            } catch (Exception e) {
+                System.out.println("Can't save new file.");
+            }
+            // get a handle to the stage
+            Stage stage = (Stage) comboBoxBoardSize.getScene().getWindow();
+            // do what you have to do
+            stage.close();
         }
-        // get a handle to the stage
-        Stage stage = (Stage) comboBoxBoardSize.getScene().getWindow();
-        // do what you have to do
-        stage.close();
     }
 }

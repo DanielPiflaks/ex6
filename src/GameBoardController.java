@@ -1,3 +1,5 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -21,6 +23,7 @@ import static javafx.scene.paint.Color.WHITE;
 public class GameBoardController implements Initializable {
 
     private GameParameters gameParameters;
+    private boolean gameOverIndicator;
     private Player firstPlayer;
     private Player secondPlayer;
     private Player currentPlayerPlaying;
@@ -35,6 +38,8 @@ public class GameBoardController implements Initializable {
     private Label blackPlayerScore;
     @FXML
     private Label whitePlayerScore;
+    @FXML
+    private Label winnerPlayer;
 
 
     public GameBoardController(GameParameters gameParameters) {
@@ -82,58 +87,24 @@ public class GameBoardController implements Initializable {
         gameBoard.setOnMouseClicked(event -> {
             this.playTurn();
         });
-        /*this.gameBoard.getChildren().clear();
-        this.gameBoard.setGridLinesVisible(false);
-        this.gameBoard.setGridLinesVisible(true);
-
-        int guiHeight = (int) root.getPrefHeight() - 50;
-        int guiWidth = (int) root.getPrefWidth() - 50;
-        int cellHeight = guiHeight / this.boardSize;
-        int cellWidth = guiWidth / this.boardSize;
-
-        for (int i = 0; i < this.boardSize; i++) {
-            gameBoard.add(new Rectangle(cellWidth, cellHeight, TRANSPARENT), i, i);
-        }
-
-        Circle newCircle = new Circle(15);
-        gameBoard.add(newCircle, (int) (boardSize * 0.5), (int) (boardSize * 0.5));
-        GridPane.setValignment(newCircle, VPos.CENTER);
-        GridPane.setHalignment(newCircle, HPos.CENTER);
-
-        newCircle = new Circle(15);
-        gameBoard.add(newCircle, (int) (boardSize * 0.5 - 1), (int) (boardSize * 0.5 - 1));
-        GridPane.setValignment(newCircle, VPos.CENTER);
-        GridPane.setHalignment(newCircle, HPos.CENTER);
-
-        newCircle = new Circle(15);
-        newCircle.setFill(WHITE);
-        newCircle.setStroke(BLACK);
-        gameBoard.add(newCircle, (int) (boardSize * 0.5 - 1), (int) (boardSize * 0.5));
-        GridPane.setValignment(newCircle, VPos.CENTER);
-        GridPane.setHalignment(newCircle, HPos.CENTER);
-
-        newCircle = new Circle(15);
-        newCircle.setFill(WHITE);
-        newCircle.setStroke(BLACK);
-        gameBoard.add(newCircle, (int) (boardSize * 0.5), (int) (boardSize * 0.5 - 1));
-        GridPane.setValignment(newCircle, VPos.CENTER);
-        GridPane.setHalignment(newCircle, HPos.CENTER);
-        */
-
 
         this.gameBoard.drawBoard((int) root.getPrefHeight(), (int) root.getPrefWidth());
         root.getChildren().add(this.gameBoard);
-        root.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double boardNewWidth = newValue.doubleValue() - 120;
-            gameBoard.setPrefWidth(boardNewWidth);
-            gameBoard.drawBoard((int) root.getPrefHeight(), (int) root.getPrefWidth());
+
+        /*root.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double boardNewWidth = newValue.doubleValue() - 200;
+            this.root.setPrefWidth(boardNewWidth);
+            //this.gameBoard.setPrefWidth(boardNewWidth);
+            int prefHeight = (int) root.getPrefHeight();
+            int prefWidth = (int) root.getPrefWidth();
+
+            this.gameBoard.drawBoard(prefHeight, prefWidth);
         });
 
         root.heightProperty().addListener((observable, oldValue, newValue) -> {
-            gameBoard.setPrefHeight(newValue.doubleValue());
-            gameBoard.drawBoard((int) root.getPrefHeight(), (int) root.getPrefWidth());
-        });
-
+            //this.gameBoard.setPrefHeight(newValue.doubleValue());
+            this.gameBoard.drawBoard((int)root.getPrefHeight(), (int)root.getPrefWidth());
+        });*/
 
     }
 
@@ -165,35 +136,6 @@ public class GameBoardController implements Initializable {
         }
     }
 
-    public void drawBoard(Board board) {
-        /*int guiHeight = (int) root.getPrefHeight() - 50;
-        int guiWidth = (int) root.getPrefWidth() - 50;
-        int cellHeight = guiHeight / this.boardSize;
-        int cellWidth = guiWidth / this.boardSize;
-
-        for (int i = 0; i < this.boardSize; i++) {
-            for (int j = 0; j < this.boardSize; j++) {
-                BoardRectangle newRec = new BoardRectangle(cellWidth, cellHeight, TRANSPARENT, i, j);
-                this.rectangles.add(newRec);
-                gameBoard.add(newRec, i, i);
-                if (board.getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.Black) {
-                    Circle black = new Circle(15);
-                    black.setFill(BLACK);
-                    gameBoard.add(black, i, j);
-                    GridPane.setValignment(black, VPos.CENTER);
-                    GridPane.setHalignment(black, HPos.CENTER);
-                } else if (board.getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.White) {
-                    Circle white = new Circle(15);
-                    white.setFill(WHITE);
-                    white.setStroke(BLACK);
-                    gameBoard.add(white, i, j);
-                    GridPane.setValignment(white, VPos.CENTER);
-                    GridPane.setHalignment(white, HPos.CENTER);
-                }
-            }
-        }*/
-    }
-
     public void changeCurrentPlayer(Enums.PlayersColors color) {
         this.currentPlayer.setText(color.toString());
     }
@@ -206,6 +148,18 @@ public class GameBoardController implements Initializable {
             case White:
                 this.whitePlayerScore.setText(String.valueOf(score));
                 break;
+        }
+    }
+
+    public void printWinnerPlayer() {
+        final String winnerMessage = "Winner is: ";
+        final String tieMessage = "It's a tie!";
+        if (this.firstPlayer.getScore() > this.secondPlayer.getScore()) {
+            this.winnerPlayer.setText(winnerMessage + this.firstPlayer.getSymbol().toString());
+        } else if (this.firstPlayer.getScore() == this.secondPlayer.getScore()) {
+            this.winnerPlayer.setText(tieMessage);
+        } else {
+            this.winnerPlayer.setText(winnerMessage + this.secondPlayer.getSymbol().toString());
         }
     }
 
@@ -255,6 +209,11 @@ public class GameBoardController implements Initializable {
                 if (nextPlayer.isThereMoves()) {
                     this.currentPlayerPlaying = nextPlayer;
                     changeCurrentPlayer(currentPlayerPlaying.getSymbol());
+                } else {
+                    if (!this.currentPlayerPlaying.isThereMoves()) {
+                        printWinnerPlayer();
+                        this.gameOverIndicator = true;
+                    }
                 }
             }
         }

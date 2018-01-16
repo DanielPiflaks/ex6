@@ -45,5 +45,6 @@
       <Label layoutX="26.0" layoutY="226.0" prefHeight="15.0" prefWidth="145.0" text="Board Size:" AnchorPane.leftAnchor="31.0" />
       <ComboBox fx:id="comboBoxBoardSize" layoutX="43.0" layoutY="252.0" onAction="#changeBoardSize" prefHeight="25.0" prefWidth="179.0" promptText="Select Board Size" />
       <Button fx:id="saveButton" layoutX="109.0" layoutY="329.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <Label fx:id="warning" layoutX="20.0" layoutY="289.0" prefHeight="25.0" prefWidth="225.0" textFill="#d70f0f" />
    </children>
 </AnchorPane>

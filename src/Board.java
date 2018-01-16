@@ -99,24 +99,25 @@ public class Board extends GridPane {
     }
 
     public void drawBoard(int rootPrefHeight, int rootPrefWidth) {
+
         int guiHeight = rootPrefHeight - 50;
         int guiWidth = rootPrefWidth - 50;
         int cellHeight = guiHeight / this.numCols;
         int cellWidth = guiWidth / this.numRows;
-
+        int radius = (cellHeight + cellWidth)/8;
         for (int i = 0; i < this.numRows; i++) {
             for (int j = 0; j < this.numCols; j++) {
                 BoardRectangle newRec = new BoardRectangle(cellWidth, cellHeight, TRANSPARENT, j, i);
                 rectangles.add(newRec);
                 this.add(newRec.getRectangle(), i, j);
                 if (getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.Black) {
-                    Circle black = new Circle(15);
+                    Circle black = new Circle(radius);
                     black.setFill(BLACK);
                     this.add(black, j, i);
                     GridPane.setValignment(black, VPos.CENTER);
                     GridPane.setHalignment(black, HPos.CENTER);
                 } else if (getSymbolByPlace(i + 1, j + 1) == Enums.PlayersColors.White) {
-                    Circle white = new Circle(15);
+                    Circle white = new Circle(radius);
                     white.setFill(WHITE);
                     white.setStroke(BLACK);
                     this.add(white, j, i);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -24,4 +25,14 @@
       <Button mnemonicParsing="false" onAction="#openSettingsWindow" text="Settings" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#startGame" text="Start Game" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
    </children>
+   <effect>
+      <Lighting>
+         <bumpInput>
+            <Shadow color="#d3c8c8" />
+         </bumpInput>
+         <light>
+            <Light.Distant color="#fff9f9" />
+         </light>
+      </Lighting>
+   </effect>
 </GridPane>
