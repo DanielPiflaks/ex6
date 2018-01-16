@@ -1,7 +1,7 @@
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
-public class BoardRectangle extends StackPane {
+public class BoardRectangle extends StackPane implements PressNotifier {
 
     private int row;
     private int col;
@@ -41,6 +41,20 @@ public class BoardRectangle extends StackPane {
         return col;
     }
 
+    @Override
+    public void pressNotify(int row, int col) {
+
+    }
+
+    @Override
+    public void addPressListener(PressListener pressListener) {
+
+    }
+
+    @Override
+    public void removePressListener(PressListener pressListener) {
+
+    }
 
     public Rectangle getRectangle(){
         return this.rectangle;

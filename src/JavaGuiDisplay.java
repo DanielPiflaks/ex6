@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class JavaGuiDisplay implements GuiDisplay {
+public class JavaGuiDisplay implements GuiDisplay, PressListener {
 
     private GameBoardController gameBoardController;
 
@@ -69,4 +69,8 @@ public class JavaGuiDisplay implements GuiDisplay {
         return null;
     }
 
+    @Override
+    public void pressListen(int row, int col) {
+
+    }
 }
